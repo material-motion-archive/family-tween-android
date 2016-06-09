@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.android.material.motion.convention;
+package com.google.android.material.motion.expression.tween;
 
 /**
- * Convention library class.
+ * TweenExpression library class.
  */
-public class Convention {
+public class TweenExpression {
 
-  public static final String LIBRARY_NAME = "Convention";
+  public static final String LIBRARY_NAME = "TweenExpression";
 }

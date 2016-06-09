@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.material.motion.convention;
+package com.google.android.material.motion.expression.tween;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
