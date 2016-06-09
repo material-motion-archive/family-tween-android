@@ -1,6 +1,6 @@
-# TweenExpression
+# Tween Expression
 
-Describe your library here.
+An implementation of tween Expressions on Android.
 
 ### Depending on the library
 

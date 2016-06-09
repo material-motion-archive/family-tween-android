@@ -14,12 +14,50 @@
   ~ License for the specific language governing permissions and limitations
   ~ under the License.
 -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
-  <TextView
-    android:id="@+id/text"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+  <Button
+    android:id="@+id/start"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Hello, World!"/>
-</FrameLayout>
+    android:text="Start"/>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+    <View
+      android:id="@+id/demo1"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:layout_marginRight="4dp"
+      android:background="#ff0000"/>
+    <View
+      android:id="@+id/demo2"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:layout_marginRight="4dp"
+      android:background="#ff0000"/>
+    <View
+      android:id="@+id/demo3"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:layout_marginRight="4dp"
+      android:background="#ff0000"/>
+    <View
+      android:id="@+id/demo4"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:layout_marginRight="4dp"
+      android:background="#ff0000"/>
+    <View
+      android:id="@+id/demo5"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:layout_marginRight="4dp"
+      android:background="#ff0000"/>
+  </LinearLayout>
+
+</LinearLayout>

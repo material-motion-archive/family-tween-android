@@ -16,10 +16,25 @@
 
 package com.google.android.material.motion.expression.tween;
 
-/**
- * TweenExpression library class.
- */
-public class TweenExpression {
+import android.util.Property;
+import android.view.View;
 
-  public static final String LIBRARY_NAME = "TweenExpression";
+/**
+ * Utility class containing helper methods for tween animations.
+ */
+class Utils {
+
+  static final Property<View, Float> SCALE =
+    new Property<View, Float>(Float.class, "translationX") {
+      @Override
+      public void set(View object, Float value) {
+        object.setScaleX(value);
+        object.setScaleY(value);
+      }
+
+      @Override
+      public Float get(View object) {
+        return object.getScaleX();
+      }
+    };
 }
