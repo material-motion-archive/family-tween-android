@@ -18,9 +18,10 @@ package com.google.android.material.motion.expression.tween;
 
 import com.google.android.material.motion.expression.Language;
 import com.google.android.material.motion.expression.Term;
-import com.google.android.material.motion.expression.Work;
 import com.google.android.material.motion.expression.tween.TweenTerm.FloatTweenTerm;
 
+import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
 import android.view.View;
 
 /**
@@ -33,8 +34,9 @@ public final class TweenLanguage extends Language<TweenLanguage> {
     super();
   }
 
-  private TweenLanguage(Work work) {
-    super(work);
+  @Keep
+  private TweenLanguage(@NonNull Term<?, TweenLanguage> previousTerm) {
+    super(previousTerm);
   }
 
   public FloatTweenTerm<?> fadeIn() {

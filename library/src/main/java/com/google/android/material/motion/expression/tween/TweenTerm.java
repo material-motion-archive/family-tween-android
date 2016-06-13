@@ -34,7 +34,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 /**
  * An abstract {@link Term} for tween animations.
  */
-public abstract class TweenTerm<T extends TweenTerm<?>> extends Term<T, TweenLanguage> {
+public abstract class TweenTerm<T extends TweenTerm<T>> extends Term<T, TweenLanguage> {
 
   private TweenTerm(
     TweenLanguage language, final Initializer initializer, Intention... intentions) {
@@ -83,7 +83,7 @@ public abstract class TweenTerm<T extends TweenTerm<?>> extends Term<T, TweenLan
    * A {@link TweenTerm} for float valued tween animations. This is an optimization to avoid
    * autoboxing.
    */
-  public static final class FloatTweenTerm<T extends FloatTweenTerm<?>> extends TweenTerm<T> {
+  public static final class FloatTweenTerm<T extends FloatTweenTerm<T>> extends TweenTerm<T> {
 
     FloatTweenTerm(
       TweenLanguage language, final Property<?, Float> property, final float... values) {
@@ -135,7 +135,7 @@ public abstract class TweenTerm<T extends TweenTerm<?>> extends Term<T, TweenLan
   /**
    * An abstract {@link TweenTerm} for generic {@link Object} valued tween animations.
    */
-  public static abstract class ObjectTweenTerm<T extends ObjectTweenTerm<?, V>, V>
+  public static abstract class ObjectTweenTerm<T extends ObjectTweenTerm<T, V>, V>
     extends TweenTerm<T> {
 
     @SafeVarargs
