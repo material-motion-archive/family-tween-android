@@ -41,13 +41,13 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.main_activity);
 
     findViewById(R.id.start)
-      .setOnClickListener(
-        new OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            runDemos();
-          }
-        });
+        .setOnClickListener(
+            new OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                runDemos();
+              }
+            });
 
     runDemos();
   }

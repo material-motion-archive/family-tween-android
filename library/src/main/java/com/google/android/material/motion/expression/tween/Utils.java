@@ -25,16 +25,16 @@ import android.view.View;
 class Utils {
 
   static final Property<View, Float> SCALE =
-    new Property<View, Float>(Float.class, "translationX") {
-      @Override
-      public void set(View object, Float value) {
-        object.setScaleX(value);
-        object.setScaleY(value);
-      }
+      new Property<View, Float>(Float.class, "translationX") {
+        @Override
+        public void set(View object, Float value) {
+          object.setScaleX(value);
+          object.setScaleY(value);
+        }
 
-      @Override
-      public Float get(View object) {
-        return object.getScaleX();
-      }
-    };
+        @Override
+        public Float get(View object) {
+          return object.getScaleX();
+        }
+      };
 }
