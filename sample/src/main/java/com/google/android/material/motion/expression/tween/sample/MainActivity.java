@@ -16,14 +16,14 @@
 
 package com.google.android.material.motion.expression.tween.sample;
 
-import com.google.android.material.motion.expression.Intention;
 import com.google.android.material.motion.expression.Term;
 import com.google.android.material.motion.expression.tween.TimingSegment;
-import com.google.android.material.motion.expression.tween.TweenIntention;
 import com.google.android.material.motion.expression.tween.TweenLanguage;
 import com.google.android.material.motion.expression.tween.TweenTerm.FloatTweenTerm;
+import com.google.android.material.motion.runtime.Plan;
+import com.google.android.material.motion.runtime.Scheduler;
+import com.google.android.material.motion.runtime.Transaction;
 
-import android.animation.Animator;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -33,6 +33,8 @@ import android.view.View.OnClickListener;
  * Sample {@link AppCompatActivity}.
  */
 public class MainActivity extends AppCompatActivity {
+
+  private final Scheduler scheduler = new Scheduler();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     FloatTweenTerm<?> exp4 = exp2.from(.75f);
     FloatTweenTerm<?> exp5 = exp3.and.moveYOutBy(200f).during(TimingSegment.SECOND_HALF);
 
-    // Can't call intentions() on exp1 since it's not a Term.
+    // Can't call plans() on exp1 since it's not a Term.
     // executeDemo(exp1, demo1); // nothing
     executeDemo(exp2, demo2); // scale in from 0f
     executeDemo(exp3, demo3); // scale in from .5f
@@ -90,12 +92,13 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void executeDemo(Term term, View demo) {
-    Intention[] intentions = term.intentions();
-    for (Intention i : intentions) {
-      TweenIntention<?> intention = (TweenIntention<?>) i;
-      Animator animator = intention.createAnimator(2000L);
-      animator.setTarget(demo);
-      animator.start();
+    Transaction transaction = new Transaction();
+
+    Plan[] plans = term.plans();
+    for (Plan plan : plans) {
+      transaction.addPlan(plan, demo);
     }
+
+    scheduler.commitTransaction(transaction);
   }
 }

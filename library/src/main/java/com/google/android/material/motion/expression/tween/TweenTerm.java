@@ -18,12 +18,12 @@ package com.google.android.material.motion.expression.tween;
 
 import com.google.android.material.motion.expression.Initializer;
 import com.google.android.material.motion.expression.Initializer.SimpleInitializer;
-import com.google.android.material.motion.expression.Intention;
 import com.google.android.material.motion.expression.Modifier.SimpleModifier;
 import com.google.android.material.motion.expression.Term;
 import com.google.android.material.motion.expression.Work;
-import com.google.android.material.motion.expression.tween.TweenIntention.FloatTweenIntention;
-import com.google.android.material.motion.expression.tween.TweenIntention.ObjectTweenIntention;
+import com.google.android.material.motion.expression.tween.TweenPlan.FloatTweenPlan;
+import com.google.android.material.motion.expression.tween.TweenPlan.ObjectTweenPlan;
+import com.google.android.material.motion.runtime.Plan;
 
 import android.animation.TimeInterpolator;
 import android.animation.TypeEvaluator;
@@ -34,22 +34,21 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 /**
  * An abstract {@link Term} for tween animations.
  */
-public abstract class TweenTerm<T extends TweenTerm<T>> extends Term<T, TweenLanguage> {
+public abstract class TweenTerm<T extends TweenTerm<?>> extends Term<T, TweenLanguage> {
 
-  private TweenTerm(
-      TweenLanguage language, final Initializer initializer, Intention... intentions) {
+  private TweenTerm(TweenLanguage language, final Initializer initializer, Plan... plans) {
     super(
         language,
         new SimpleInitializer(initializer) {
 
           @Override
-          protected void initialize(Intention intention) {
-            TweenIntention<?> i = (TweenIntention<?>) intention;
+          protected void initialize(Plan plan) {
+            TweenPlan<?> i = (TweenPlan<?>) plan;
             i.segment = TimingSegment.COMPLETE;
             i.easingCurve = new AccelerateDecelerateInterpolator();
           }
         },
-        intentions);
+        plans);
   }
 
   @Keep
@@ -61,8 +60,8 @@ public abstract class TweenTerm<T extends TweenTerm<T>> extends Term<T, TweenLan
     return modify(
         new SimpleModifier() {
           @Override
-          public void modify(Intention intention) {
-            TweenIntention<?> i = (TweenIntention<?>) intention;
+          public void modify(Plan plan) {
+            TweenPlan<?> i = (TweenPlan<?>) plan;
             i.segment = segment;
           }
         });
@@ -72,8 +71,8 @@ public abstract class TweenTerm<T extends TweenTerm<T>> extends Term<T, TweenLan
     return modify(
         new SimpleModifier() {
           @Override
-          public void modify(Intention intention) {
-            TweenIntention<?> i = (TweenIntention<?>) intention;
+          public void modify(Plan plan) {
+            TweenPlan<?> i = (TweenPlan<?>) plan;
             i.easingCurve = easingCurve;
           }
         });
@@ -83,7 +82,7 @@ public abstract class TweenTerm<T extends TweenTerm<T>> extends Term<T, TweenLan
    * A {@link TweenTerm} for float valued tween animations. This is an optimization to avoid
    * autoboxing.
    */
-  public static final class FloatTweenTerm<T extends FloatTweenTerm<T>> extends TweenTerm<T> {
+  public static final class FloatTweenTerm<T extends FloatTweenTerm<?>> extends TweenTerm<T> {
 
     FloatTweenTerm(
         TweenLanguage language, final Property<?, Float> property, final float... values) {
@@ -91,13 +90,13 @@ public abstract class TweenTerm<T extends TweenTerm<T>> extends Term<T, TweenLan
           language,
           new SimpleInitializer(null) {
             @Override
-            protected void initialize(Intention intention) {
-              FloatTweenIntention i = (FloatTweenIntention) intention;
+            protected void initialize(Plan plan) {
+              FloatTweenPlan i = (FloatTweenPlan) plan;
               i.property = property;
               i.values = values;
             }
           },
-          new FloatTweenIntention());
+          new FloatTweenPlan());
     }
 
     @Keep
@@ -109,8 +108,8 @@ public abstract class TweenTerm<T extends TweenTerm<T>> extends Term<T, TweenLan
       return modify(
           new SimpleModifier() {
             @Override
-            public void modify(Intention intention) {
-              FloatTweenIntention i = (FloatTweenIntention) intention;
+            public void modify(Plan plan) {
+              FloatTweenPlan i = (FloatTweenPlan) plan;
               if (i.values.length == 1) {
                 i.values = new float[] {value, i.values[0]};
               } else {
@@ -124,8 +123,8 @@ public abstract class TweenTerm<T extends TweenTerm<T>> extends Term<T, TweenLan
       return modify(
           new SimpleModifier() {
             @Override
-            public void modify(Intention intention) {
-              FloatTweenIntention i = (FloatTweenIntention) intention;
+            public void modify(Plan plan) {
+              FloatTweenPlan i = (FloatTweenPlan) plan;
               i.values[i.values.length - 1] = value;
             }
           });
@@ -135,7 +134,7 @@ public abstract class TweenTerm<T extends TweenTerm<T>> extends Term<T, TweenLan
   /**
    * An abstract {@link TweenTerm} for generic {@link Object} valued tween animations.
    */
-  public static abstract class ObjectTweenTerm<T extends ObjectTweenTerm<T, V>, V>
+  public static abstract class ObjectTweenTerm<T extends ObjectTweenTerm<?, ?>, V>
       extends TweenTerm<T> {
 
     @SafeVarargs
@@ -148,14 +147,14 @@ public abstract class TweenTerm<T extends TweenTerm<T>> extends Term<T, TweenLan
           builder,
           new SimpleInitializer(null) {
             @Override
-            protected void initialize(Intention intention) {
-              ObjectTweenIntention i = (ObjectTweenIntention) intention;
+            protected void initialize(Plan plan) {
+              ObjectTweenPlan i = (ObjectTweenPlan) plan;
               i.property = property;
               i.evaluator = evaluator;
               i.values = values;
             }
           },
-          new ObjectTweenIntention());
+          new ObjectTweenPlan());
     }
 
     @Keep
@@ -167,8 +166,8 @@ public abstract class TweenTerm<T extends TweenTerm<T>> extends Term<T, TweenLan
       return modify(
           new SimpleModifier() {
             @Override
-            public void modify(Intention intention) {
-              ObjectTweenIntention i = (ObjectTweenIntention) intention;
+            public void modify(Plan plan) {
+              ObjectTweenPlan i = (ObjectTweenPlan) plan;
               if (i.values.length == 1) {
                 i.values = new Object[] {value, i.values[0]};
               } else {
@@ -182,8 +181,8 @@ public abstract class TweenTerm<T extends TweenTerm<T>> extends Term<T, TweenLan
       return modify(
           new SimpleModifier() {
             @Override
-            public void modify(Intention intention) {
-              ObjectTweenIntention i = (ObjectTweenIntention) intention;
+            public void modify(Plan plan) {
+              ObjectTweenPlan i = (ObjectTweenPlan) plan;
               i.values[i.values.length - 1] = value;
             }
           });
