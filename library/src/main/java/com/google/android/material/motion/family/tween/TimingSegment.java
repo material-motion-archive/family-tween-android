@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.material.motion.expression.tween;
+package com.google.android.material.motion.family.tween;
 
 /**
  * A representation of the timing applied to a tween animation.

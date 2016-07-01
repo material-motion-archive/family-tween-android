@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.google.android.material.motion.expression.tween;
+package com.google.android.material.motion.family.tween;
 
 import com.google.android.material.motion.expression.Language;
 import com.google.android.material.motion.expression.Term;
-import com.google.android.material.motion.expression.tween.TweenTerm.FloatTweenTerm;
+import com.google.android.material.motion.family.tween.TweenTerm.FloatTweenTerm;
 
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;

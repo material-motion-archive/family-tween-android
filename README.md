@@ -1,6 +1,6 @@
-# Tween Expression
+# Tween Family
 
-An implementation of tween Expressions on Android.
+An implementation of Tween Family on Android.
 
 ### Depending on the library
 
@@ -16,7 +16,7 @@ and:
 
 ```gradle
 dependencies {
-    compile 'com.github.material-motion:material-motion-expression-tween-android:master-SNAPSHOT'
+    compile 'com.github.material-motion:material-motion-family-tween-android:master-SNAPSHOT'
 }
 ```
 

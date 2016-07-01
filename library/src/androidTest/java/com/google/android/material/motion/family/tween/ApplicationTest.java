@@ -14,27 +14,17 @@
  * limitations under the License.
  */
 
-package com.google.android.material.motion.expression.tween;
+package com.google.android.material.motion.family.tween;
 
-import android.util.Property;
-import android.view.View;
+import android.app.Application;
+import android.test.ApplicationTestCase;
 
 /**
- * Utility class containing helper methods for tween animations.
+ * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
  */
-class Utils {
+public class ApplicationTest extends ApplicationTestCase<Application> {
 
-  static final Property<View, Float> SCALE =
-      new Property<View, Float>(Float.class, "translationX") {
-        @Override
-        public void set(View object, Float value) {
-          object.setScaleX(value);
-          object.setScaleY(value);
-        }
-
-        @Override
-        public Float get(View object) {
-          return object.getScaleX();
-        }
-      };
+  public ApplicationTest() {
+    super(Application.class);
+  }
 }

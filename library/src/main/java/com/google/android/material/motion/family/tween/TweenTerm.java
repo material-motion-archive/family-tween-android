@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.material.motion.expression.tween;
+package com.google.android.material.motion.family.tween;
 
 import com.google.android.material.motion.expression.Initializer;
 import com.google.android.material.motion.expression.Initializer.SimpleInitializer;
 import com.google.android.material.motion.expression.Modifier.SimpleModifier;
 import com.google.android.material.motion.expression.Term;
 import com.google.android.material.motion.expression.Work;
-import com.google.android.material.motion.expression.tween.TweenPlan.FloatTweenPlan;
-import com.google.android.material.motion.expression.tween.TweenPlan.ObjectTweenPlan;
+import com.google.android.material.motion.family.tween.TweenPlan.FloatTweenPlan;
+import com.google.android.material.motion.family.tween.TweenPlan.ObjectTweenPlan;
 import com.google.android.material.motion.runtime.Plan;
 
 import android.animation.TimeInterpolator;

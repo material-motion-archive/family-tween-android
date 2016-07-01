@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-package com.google.android.material.motion.expression.tween;
+package com.google.android.material.motion.family.tween;
 
 import com.google.android.material.motion.runtime.Performer;
 import com.google.android.material.motion.runtime.Plan;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.TimeInterpolator;
 import android.animation.TypeEvaluator;

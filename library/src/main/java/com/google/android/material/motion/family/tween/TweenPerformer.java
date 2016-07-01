@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.android.material.motion.expression.tween;
+package com.google.android.material.motion.family.tween;
 
 import com.google.android.material.motion.runtime.Performer;
 import com.google.android.material.motion.runtime.Performer.DelegatedPerformance;

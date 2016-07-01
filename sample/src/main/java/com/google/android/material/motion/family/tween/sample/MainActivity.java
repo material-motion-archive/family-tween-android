@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.android.material.motion.expression.tween.sample;
+package com.google.android.material.motion.family.tween.sample;
 
 import com.google.android.material.motion.expression.Term;
-import com.google.android.material.motion.expression.tween.TimingSegment;
-import com.google.android.material.motion.expression.tween.TweenLanguage;
-import com.google.android.material.motion.expression.tween.TweenTerm.FloatTweenTerm;
+import com.google.android.material.motion.family.tween.TimingSegment;
+import com.google.android.material.motion.family.tween.TweenLanguage;
+import com.google.android.material.motion.family.tween.TweenTerm.FloatTweenTerm;
 import com.google.android.material.motion.runtime.Plan;
 import com.google.android.material.motion.runtime.Scheduler;
 import com.google.android.material.motion.runtime.Transaction;
