@@ -16,21 +16,18 @@
 
 package com.google.android.material.motion.family.tween.sample;
 
-import com.google.android.material.motion.expression.Term;
-import com.google.android.material.motion.family.tween.TimingSegment;
-import com.google.android.material.motion.family.tween.TweenLanguage;
-import com.google.android.material.motion.family.tween.TweenTerm.FloatTweenTerm;
-import com.google.android.material.motion.runtime.Plan;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import com.google.android.material.motion.family.tween.Tween;
+import com.google.android.material.motion.family.tween.TweenProperty;
 import com.google.android.material.motion.runtime.Scheduler;
 import com.google.android.material.motion.runtime.Transaction;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.View.OnClickListener;
-
 /**
- * Sample {@link AppCompatActivity}.
+ * Material Motion Tween Family sample Activity.
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -42,63 +39,31 @@ public class MainActivity extends AppCompatActivity {
 
     setContentView(R.layout.main_activity);
 
-    findViewById(R.id.start)
-        .setOnClickListener(
-            new OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                runDemos();
-              }
-            });
+    View content = findViewById(android.R.id.content);
+    final View target = findViewById(R.id.target);
 
-    runDemos();
-  }
+    content.setOnTouchListener(new OnTouchListener() {
+      @Override
+      public boolean onTouch(View view, MotionEvent event) {
+        Tween tween = new Tween<>(TweenProperty.SCALE, 300, 1f);
 
-  private void runDemos() {
-    tweenDemo();
-  }
+        switch (event.getActionMasked()) {
+          case MotionEvent.ACTION_DOWN:
+            tween.to = .5f;
+            break;
+          case MotionEvent.ACTION_UP:
+            tween.to = 1f;
+            break;
+          default:
+            return false;
+        }
 
-  private void tweenDemo() {
-    View demo1 = findViewById(R.id.demo1);
-    View demo2 = findViewById(R.id.demo2);
-    View demo3 = findViewById(R.id.demo3);
-    View demo4 = findViewById(R.id.demo4);
-    View demo5 = findViewById(R.id.demo5);
+        Transaction transaction = new Transaction();
+        transaction.addPlan(tween, target);
+        scheduler.commitTransaction(transaction);
 
-    resetDemo(demo1);
-    resetDemo(demo2);
-    resetDemo(demo3);
-    resetDemo(demo4);
-    resetDemo(demo5);
-
-    TweenLanguage exp1 = new TweenLanguage();
-    FloatTweenTerm<?> exp2 = exp1.scale(0f, 1f);
-    FloatTweenTerm<?> exp3 = exp2.from(.5f);
-    FloatTweenTerm<?> exp4 = exp2.from(.75f);
-    FloatTweenTerm<?> exp5 = exp3.and.moveYOutBy(200f).during(TimingSegment.SECOND_HALF);
-
-    // Can't call plans() on exp1 since it's not a Term.
-    // executeDemo(exp1, demo1); // nothing
-    executeDemo(exp2, demo2); // scale in from 0f
-    executeDemo(exp3, demo3); // scale in from .5f
-    executeDemo(exp4, demo4); // scale in from .75f
-    executeDemo(exp5, demo5); // scale in from .5f, move out by 200f during 2nd half
-  }
-
-  private void resetDemo(View demo) {
-    demo.setScaleX(1f);
-    demo.setScaleY(1f);
-    demo.setTranslationY(0f);
-  }
-
-  private void executeDemo(Term term, View demo) {
-    Transaction transaction = new Transaction();
-
-    Plan[] plans = term.plans();
-    for (Plan plan : plans) {
-      transaction.addPlan(plan, demo);
-    }
-
-    scheduler.commitTransaction(transaction);
+        return true;
+      }
+    });
   }
 }

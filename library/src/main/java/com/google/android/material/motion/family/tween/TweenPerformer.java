@@ -15,8 +15,9 @@
  */
 package com.google.android.material.motion.family.tween;
 
+import android.animation.PropertyValuesHolder;
 import com.google.android.material.motion.runtime.Performer;
-import com.google.android.material.motion.runtime.Performer.DelegatedPerformance;
+import com.google.android.material.motion.runtime.Performer.ContinuousPerformance;
 import com.google.android.material.motion.runtime.Performer.PlanPerformance;
 import com.google.android.material.motion.runtime.Plan;
 
@@ -25,44 +26,62 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 
 /**
- * A {@link Performer} for tween animations. Delegates execution to the {@link Animator} API.
+ * A {@link Performer} for tween animations. Uses the {@link Animator} API to fulfil tweens.
  */
-public final class TweenPerformer extends Performer
-    implements PlanPerformance, DelegatedPerformance {
-  // TODO: Figure out how to declare explicit duration.
-  private static final long TOTAL_DURATION = 2000L;
+public class TweenPerformer extends Performer
+  implements PlanPerformance, ContinuousPerformance {
 
-  private DelegatedPerformanceCallback callback;
+  private IsActiveTokenGenerator isActiveTokenGenerator;
 
   @Override
-  public void setDelegatedPerformanceCallback(DelegatedPerformanceCallback callback) {
-    this.callback = callback;
+  public void setIsActiveTokenGenerator(IsActiveTokenGenerator isActiveTokenGenerator) {
+    this.isActiveTokenGenerator = isActiveTokenGenerator;
   }
 
   @Override
   public void addPlan(Plan plan) {
+    if (plan instanceof Tween) {
+      addTween((Tween) plan);
+    } else {
+      throw new IllegalArgumentException("Plan type not supported for " + plan);
+    }
+  }
+
+  private void addTween(Tween plan) {
     Object target = getTarget();
-    final TweenPlan tweenPlan = (TweenPlan) plan;
 
-    Animator animator =
-        ObjectAnimator.ofPropertyValuesHolder(target, tweenPlan.createPropertyValuesHolder());
-    animator.setStartDelay(tweenPlan.segment.getStartDelay(TOTAL_DURATION));
-    animator.setDuration(tweenPlan.segment.getDuration(TOTAL_DURATION));
-    animator.setInterpolator(tweenPlan.easingCurve);
+    ObjectAnimator animator =
+      ObjectAnimator.ofPropertyValuesHolder(target, createPropertyValuesHolder(plan));
+    animator.setStartDelay(plan.delay);
+    animator.setDuration(plan.duration);
+    if (plan.interpolator != null) {
+      animator.setInterpolator(plan.interpolator);
+    }
     animator.addListener(
-        new AnimatorListenerAdapter() {
-          @Override
-          public void onAnimationStart(Animator animation) {
-            callback.onDelegatedPerformanceStart(
-                TweenPerformer.this, String.valueOf(tweenPlan.hashCode()));
-          }
+      new AnimatorListenerAdapter() {
 
-          @Override
-          public void onAnimationEnd(Animator animation) {
-            callback.onDelegatedPerformanceEnd(
-                TweenPerformer.this, String.valueOf(tweenPlan.hashCode()));
-          }
-        });
+        private IsActiveToken token;
+
+        @Override
+        public void onAnimationStart(Animator animation) {
+          token = isActiveTokenGenerator.generate();
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+          token.terminate();
+        }
+      });
     animator.start();
+  }
+
+  private PropertyValuesHolder createPropertyValuesHolder(Tween plan) {
+    if (plan.from == null) {
+      return PropertyValuesHolder
+        .ofObject(plan.property.property, plan.property.evaluator, plan.to);
+    } else {
+      return PropertyValuesHolder
+        .ofObject(plan.property.property, plan.property.evaluator, plan.from, plan.to);
+    }
   }
 }
