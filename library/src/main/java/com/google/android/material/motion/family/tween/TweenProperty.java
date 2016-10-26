@@ -23,41 +23,41 @@ import android.view.View;
 /**
  * Defines the properties that can be animated with {@link Tween}.
  */
-public class TweenProperty<V> {
+public class TweenProperty<T, V> {
 
   private static final TypeEvaluator<Number> NO_OP = new FloatEvaluator();
 
-  public static final TweenProperty<Float> ALPHA =
+  public static final TweenProperty<View, Float> ALPHA =
     new TweenProperty<>(View.ALPHA, NO_OP);
-  public static final TweenProperty<Float> TRANSLATION_X =
+  public static final TweenProperty<View, Float> TRANSLATION_X =
     new TweenProperty<>(View.TRANSLATION_X, NO_OP);
-  public static final TweenProperty<Float> TRANSLATION_Y =
+  public static final TweenProperty<View, Float> TRANSLATION_Y =
     new TweenProperty<>(View.TRANSLATION_Y, NO_OP);
-  public static final TweenProperty<Float> TRANSLATION_Z =
+  public static final TweenProperty<View, Float> TRANSLATION_Z =
     new TweenProperty<>(View.TRANSLATION_Z, NO_OP);
-  public static final TweenProperty<Float> X =
+  public static final TweenProperty<View, Float> X =
     new TweenProperty<>(View.X, NO_OP);
-  public static final TweenProperty<Float> Y =
+  public static final TweenProperty<View, Float> Y =
     new TweenProperty<>(View.Y, NO_OP);
-  public static final TweenProperty<Float> Z =
+  public static final TweenProperty<View, Float> Z =
     new TweenProperty<>(View.Z, NO_OP);
-  public static final TweenProperty<Float> ROTATION =
+  public static final TweenProperty<View, Float> ROTATION =
     new TweenProperty<>(View.ROTATION, NO_OP);
-  public static final TweenProperty<Float> ROTATION_X =
+  public static final TweenProperty<View, Float> ROTATION_X =
     new TweenProperty<>(View.ROTATION_X, NO_OP);
-  public static final TweenProperty<Float> ROTATION_Y =
+  public static final TweenProperty<View, Float> ROTATION_Y =
     new TweenProperty<>(View.ROTATION_Y, NO_OP);
-  public static final TweenProperty<Float> SCALE_X =
+  public static final TweenProperty<View, Float> SCALE_X =
     new TweenProperty<>(View.SCALE_X, NO_OP);
-  public static final TweenProperty<Float> SCALE_Y =
+  public static final TweenProperty<View, Float> SCALE_Y =
     new TweenProperty<>(View.SCALE_Y, NO_OP);
-  public static final TweenProperty<Float> SCALE =
+  public static final TweenProperty<View, Float> SCALE =
     new TweenProperty<>(new CombinedProperty<>(View.SCALE_X, View.SCALE_Y), NO_OP);
 
-  final TypeEvaluator evaluator;
-  final Property property;
+  final TypeEvaluator<? super V> evaluator;
+  final Property<T, V> property;
 
-  public TweenProperty(Property<?, V> property, TypeEvaluator<? super V> evaluator) {
+  public TweenProperty(Property<T, V> property, TypeEvaluator<? super V> evaluator) {
     this.property = property;
     this.evaluator = evaluator;
   }

@@ -15,23 +15,45 @@
  */
 package com.google.android.material.motion.family.tween;
 
+import static com.google.common.truth.Truth.assertThat;
+
+import android.app.Activity;
+import android.content.Context;
+import android.view.View;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 21)
-public class UnitTests {
+public class TweenPropertyTests {
+
+  private View target;
 
   @Before
   public void setUp() {
-
+    Context context = Robolectric.setupActivity(Activity.class);
+    target = new View(context);
   }
 
   @Test
-  public void unitTest() {
+  public void propertySetsTargetValue() {
+    target.setScaleX(0f);
 
+    TweenProperty.SCALE.property.set(target, 0.5f);
+
+    assertThat(target.getScaleX()).isWithin(0).of(0.5f);
+  }
+
+  @Test
+  public void propertyGetsTargetValue() {
+    target.setScaleX(0.5f);
+
+    float scale = TweenProperty.SCALE.property.get(target);
+
+    assertThat(scale).isWithin(0).of(0.5f);
   }
 }

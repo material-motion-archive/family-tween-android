@@ -35,7 +35,7 @@ public class Tween<V> extends Plan {
   /**
    * The property whose value will be tweened.
    */
-  public TweenProperty<V> property;
+  public TweenProperty<?, V> property;
   /**
    * The initial value of the tween.
    *
@@ -68,7 +68,7 @@ public class Tween<V> extends Plan {
    * Initializes a Tween plan for the given property to the given final value. The initial value is
    * calculated from the target.
    */
-  public Tween(TweenProperty<V> property, long duration, @NonNull V to) {
+  public Tween(TweenProperty<?, V> property, long duration, @NonNull V to) {
     this.property = property;
     this.duration = duration;
     this.to = to;
@@ -78,7 +78,7 @@ public class Tween<V> extends Plan {
    * Initializes a Tween plan for the given property from the given initial value to the given final
    * value.
    */
-  public Tween(TweenProperty<V> property, long duration, @NonNull V from, @NonNull V to) {
+  public Tween(TweenProperty<?, V> property, long duration, @NonNull V from, @NonNull V to) {
     this.property = property;
     this.duration = duration;
     this.from = from;
