@@ -18,7 +18,6 @@ package com.google.android.material.motion.family.tween;
 import android.animation.PropertyValuesHolder;
 import com.google.android.material.motion.runtime.Performer;
 import com.google.android.material.motion.runtime.Performer.ContinuousPerformance;
-import com.google.android.material.motion.runtime.Performer.PlanPerformance;
 import com.google.android.material.motion.runtime.Plan;
 
 import android.animation.Animator;
@@ -28,8 +27,7 @@ import android.animation.ObjectAnimator;
 /**
  * A {@link Performer} for tween animations. Uses the {@link Animator} API to fulfil tweens.
  */
-public class TweenPerformer extends Performer
-  implements PlanPerformance, ContinuousPerformance {
+public class TweenPerformer extends Performer implements ContinuousPerformance {
 
   private IsActiveTokenGenerator isActiveTokenGenerator;
 
