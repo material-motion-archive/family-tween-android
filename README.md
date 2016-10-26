@@ -93,12 +93,17 @@ choose the root `build.gradle` file.
 
 ## Example apps/unit tests
 
-Check out a local copy of the repo to access the Catalog application by running the following
-commands:
+To build the sample application, run the following commands:
 
     git clone https://github.com/material-motion/material-motion-family-tween-android.git
     cd material-motion-family-tween-android
     gradle installDebug
+
+To run all unit tests, run the following commands:
+
+    git clone https://github.com/material-motion/material-motion-family-tween-android.git
+    cd material-motion-family-tween-android
+    gradle test
 
 ## Guides
 
