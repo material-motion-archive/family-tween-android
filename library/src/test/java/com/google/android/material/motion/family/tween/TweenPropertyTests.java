@@ -19,6 +19,9 @@ import static com.google.common.truth.Truth.assertThat;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.view.View;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,5 +58,23 @@ public class TweenPropertyTests {
     float scale = TweenProperty.SCALE.property.get(target);
 
     assertThat(scale).isWithin(0).of(0.5f);
+  }
+
+  @Test
+  public void backgroundColorSetsTargetValue() {
+    //noinspection deprecation
+    target.setBackgroundDrawable(new ShapeDrawable());
+
+    TweenProperty.BACKGROUND_COLOR.property.set(target, Color.RED);
+
+    assertThat(target.getBackground()).isInstanceOf(ColorDrawable.class);
+    assertThat(((ColorDrawable) target.getBackground()).getColor()).isEqualTo(Color.RED);
+  }
+
+  @Test
+  public void backgroundColorGetsTargetValue() {
+    target.setBackgroundColor(Color.GREEN);
+
+    assertThat(TweenProperty.BACKGROUND_COLOR.property.get(target)).isEqualTo(Color.GREEN);
   }
 }

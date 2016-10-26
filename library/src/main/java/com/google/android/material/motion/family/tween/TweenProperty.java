@@ -15,8 +15,10 @@
  */
 package com.google.android.material.motion.family.tween;
 
+import android.animation.ArgbEvaluator;
 import android.animation.FloatEvaluator;
 import android.animation.TypeEvaluator;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Property;
 import android.view.View;
 
@@ -53,6 +55,8 @@ public class TweenProperty<T, V> {
     new TweenProperty<>(View.SCALE_Y, NO_OP);
   public static final TweenProperty<View, Float> SCALE =
     new TweenProperty<>(new CombinedProperty<>(View.SCALE_X, View.SCALE_Y), NO_OP);
+  public static final TweenProperty<View, Integer> BACKGROUND_COLOR =
+    new TweenProperty<>(new BackgroundColorProperty(), new ArgbEvaluator());
 
   final TypeEvaluator<? super V> evaluator;
   final Property<T, V> property;
@@ -87,6 +91,26 @@ public class TweenProperty<T, V> {
       for (Property<T, V> property : properties) {
         property.set(object, value);
       }
+    }
+  }
+
+  /**
+   * A Property for a view's background color.
+   */
+  private static class BackgroundColorProperty extends Property<View, Integer> {
+
+    public BackgroundColorProperty() {
+      super(Integer.class, "background color");
+    }
+
+    @Override
+    public Integer get(View object) {
+      return ((ColorDrawable) object.getBackground()).getColor();
+    }
+
+    @Override
+    public void set(View object, Integer value) {
+      object.setBackgroundColor(value);
     }
   }
 }

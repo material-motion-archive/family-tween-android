@@ -15,6 +15,7 @@
  */
 package com.google.android.material.motion.family.tween.sample;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
@@ -44,22 +45,24 @@ public class MainActivity extends AppCompatActivity {
     content.setOnTouchListener(new OnTouchListener() {
       @Override
       public boolean onTouch(View view, MotionEvent event) {
-        Tween tween = new Tween<>(TweenProperty.SCALE, 300, 1f);
+        Tween tweenScale = new Tween<>(TweenProperty.SCALE, 300, 1f);
+        Tween tweenBackgroundColor = new Tween<>(TweenProperty.BACKGROUND_COLOR, 300, Color.RED);
 
         switch (event.getActionMasked()) {
           case MotionEvent.ACTION_DOWN:
-            tween.to = .5f;
+            tweenScale.to = .5f;
+            tweenBackgroundColor.to = Color.GREEN;
             break;
           case MotionEvent.ACTION_UP:
-            tween.to = 1f;
+            tweenScale.to = 1f;
+            tweenBackgroundColor.to = Color.RED;
             break;
           default:
             return false;
         }
 
-        Transaction transaction = new Transaction();
-        transaction.addPlan(tween, target);
-        scheduler.commitTransaction(transaction);
+        scheduler.addPlan(tweenScale, target);
+        scheduler.addPlan(tweenBackgroundColor, target);
 
         return true;
       }
