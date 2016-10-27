@@ -3,7 +3,32 @@
 [![Build Status](https://travis-ci.org/material-motion/material-motion-family-tween-android.svg?branch=develop)](https://travis-ci.org/material-motion/material-motion-family-tween-android)
 [![codecov](https://codecov.io/gh/material-motion/material-motion-family-tween-android/branch/develop/graph/badge.svg)](https://codecov.io/gh/material-motion/material-motion-family-tween-android)
 
-An implementation of Tween Family on Android.
+The Tween Material Motion family provides a bridge between
+[Property Animation](https://developer.android.com/guide/topics/graphics/prop-animation.html) and the
+[Material Motion runtime](https://github.com/material-motion/material-motion-runtime-android).
+
+## Features
+
+`Tween` uses Property Animation's ObjectAnimator to animate a property along an easing curve.
+
+Use a Tween like you would use a ObjectAnimator instance: provide a property, duration, and one or
+both of the from/to value.
+
+```java
+Tween tweenBackgroundColor = new Tween<>(TweenProperty.BACKGROUND_COLOR, duration, Color.GREEN, Color.RED);
+scheduler.addPlan(tweenBackgroundColor, view);
+```
+
+Tween's properties map to the following ObjectAnimator properties:
+
+| Tween | Property Animation |
+|:-----:|:--------------:|
+| delay  | startDelay |
+| duration  | duration |
+| from  | values... |
+| property  | property |
+| to  | values... |
+| interpolator  | interpolator |
 
 ## Installation
 
@@ -107,16 +132,14 @@ To run all unit tests, run the following commands:
 
 ## Guides
 
-1. [Architecture](#architecture)
-2. [How to ...](#how-to-...)
+1. [How to animate a property with a Tween plan](#how-to-animate-a-property-with-a-tween-plan)
 
-### Architecture
+### How to animate a property with a Tween plan
 
-https://github.com/material-motion/material-motion-family-tween-android/issues/10
-
-### How to ...
-
-https://github.com/material-motion/material-motion-family-tween-android/issues/10
+```java
+Tween tween = new Tween<>(property, duration, from, to);
+scheduler.addPlan(tween, view);
+```
 
 ## Contributing
 
