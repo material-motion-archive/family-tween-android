@@ -17,17 +17,17 @@ package com.google.android.material.motion.family.tween;
 
 import android.animation.PropertyValuesHolder;
 import com.google.android.material.motion.runtime.Performer;
-import com.google.android.material.motion.runtime.Performer.ContinuousPerformance;
-import com.google.android.material.motion.runtime.Plan;
+import com.google.android.material.motion.runtime.PerformerFeatures.ContinuousPerforming;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import com.google.android.material.motion.runtime.PlanFeatures.BasePlan;
 
 /**
  * A {@link Performer} for tween animations. Uses the {@link Animator} API to fulfil tweens.
  */
-public class TweenPerformer extends Performer implements ContinuousPerformance {
+public class TweenPerformer extends Performer implements ContinuousPerforming {
 
   private IsActiveTokenGenerator isActiveTokenGenerator;
 
@@ -37,7 +37,7 @@ public class TweenPerformer extends Performer implements ContinuousPerformance {
   }
 
   @Override
-  public void addPlan(Plan plan) {
+  public void addPlan(BasePlan plan) {
     if (plan instanceof Tween) {
       addTween((Tween) plan);
     } else {

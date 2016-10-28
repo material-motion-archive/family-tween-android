@@ -24,7 +24,6 @@ import android.view.View.OnTouchListener;
 import com.google.android.material.motion.family.tween.Tween;
 import com.google.android.material.motion.family.tween.TweenProperty;
 import com.google.android.material.motion.runtime.Scheduler;
-import com.google.android.material.motion.runtime.Transaction;
 
 /**
  * Material Motion Tween Family sample Activity.
