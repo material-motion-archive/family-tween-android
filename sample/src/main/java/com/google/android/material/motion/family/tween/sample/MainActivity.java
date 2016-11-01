@@ -23,14 +23,14 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import com.google.android.material.motion.family.tween.Tween;
 import com.google.android.material.motion.family.tween.TweenProperty;
-import com.google.android.material.motion.runtime.Scheduler;
+import com.google.android.material.motion.runtime.Runtime;
 
 /**
  * Material Motion Tween Family sample Activity.
  */
 public class MainActivity extends AppCompatActivity {
 
-  private final Scheduler scheduler = new Scheduler();
+  private final Runtime runtime = new Runtime();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
 
-        scheduler.addPlan(tweenScale, target);
-        scheduler.addPlan(tweenBackgroundColor, target);
+        runtime.addPlan(tweenScale, target);
+        runtime.addPlan(tweenBackgroundColor, target);
 
         return true;
       }

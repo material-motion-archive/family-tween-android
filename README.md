@@ -16,7 +16,7 @@ both of the from/to value.
 
 ```java
 Tween tweenBackgroundColor = new Tween<>(TweenProperty.BACKGROUND_COLOR, duration, Color.GREEN, Color.RED);
-scheduler.addPlan(tweenBackgroundColor, view);
+runtime.addPlan(tweenBackgroundColor, view);
 ```
 
 Tween's properties map to the following ObjectAnimator properties:
@@ -138,7 +138,7 @@ To run all unit tests, run the following commands:
 
 ```java
 Tween tween = new Tween<>(property, duration, from, to);
-scheduler.addPlan(tween, view);
+runtime.addPlan(tween, view);
 ```
 
 ## Contributing

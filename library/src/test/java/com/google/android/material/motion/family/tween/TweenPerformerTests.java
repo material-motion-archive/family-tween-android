@@ -25,7 +25,7 @@ import com.google.android.material.motion.runtime.Performer;
 import com.google.android.material.motion.runtime.PerformerFeatures.ContinuousPerforming.IsActiveToken;
 import com.google.android.material.motion.runtime.PerformerFeatures.ContinuousPerforming.IsActiveTokenGenerator;
 import com.google.android.material.motion.runtime.Plan;
-import com.google.android.material.motion.runtime.Scheduler;
+import com.google.android.material.motion.runtime.Runtime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,12 +37,12 @@ import org.robolectric.annotation.Config;
 @Config(constants = BuildConfig.class, sdk = 21)
 public class TweenPerformerTests {
 
-  private Scheduler scheduler;
+  private Runtime runtime;
   private View target;
 
   @Before
   public void setUp() {
-    scheduler = new Scheduler();
+    runtime = new Runtime();
     Context context = Robolectric.setupActivity(Activity.class);
     target = new View(context);
   }
@@ -56,7 +56,7 @@ public class TweenPerformerTests {
   @Test
   public void tweenChangesTargetValue() {
     Tween<Float> fadeOut = new Tween<>(TweenProperty.ALPHA, 300, 1f, 0f);
-    scheduler.addPlan(fadeOut, target);
+    runtime.addPlan(fadeOut, target);
 
     assertThat(target.getAlpha()).isWithin(0).of(0f);
   }
@@ -66,7 +66,7 @@ public class TweenPerformerTests {
     target.setAlpha(1f);
 
     Tween<Float> fadeOut = new Tween<>(TweenProperty.ALPHA, 300, 0f);
-    scheduler.addPlan(fadeOut, target);
+    runtime.addPlan(fadeOut, target);
 
     // Unfortunately it's difficult to test that the implicit from is honored, because animations
     // are run synchronously in unit tests.
@@ -78,7 +78,7 @@ public class TweenPerformerTests {
     Tween<Float> fadeOut = new Tween<>(TweenProperty.ALPHA, 300, 0f);
     fadeOut.interpolator = new AccelerateInterpolator();
 
-    scheduler.addPlan(fadeOut, target);
+    runtime.addPlan(fadeOut, target);
 
     // Unfortunately it's difficult to test that the interpolator is honored, because animations
     // are run synchronously in unit tests.
