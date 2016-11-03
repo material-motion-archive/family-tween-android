@@ -1,3 +1,21 @@
+# 1.1.0
+
+This release adds support for [Runtime 4.0.0](https://github.com/material-motion/material-motion-runtime-android/releases/tag/4.0.0).
+
+## Source changes
+
+* [Rename scheduler to runtime in tween.](https://github.com/material-motion/material-motion-family-tween-android/commit/c1f16309858a27b23a92572e0184ef8e86f187d5) (Mark Wei)
+* [Support next version of runtime.](https://github.com/material-motion/material-motion-family-tween-android/commit/d37d699710a71da906f4f30f30fc956250135237) (Mark Wei)
+
+
+## Non-source changes
+
+* [Automatic changelog preparation for release.](https://github.com/material-motion/material-motion-family-tween-android/commit/68145ad59d3d4c2530ffef3df4ec7e665044e5a1) (Mark Wei)
+* [Run mdm new repo .](https://github.com/material-motion/material-motion-family-tween-android/commit/497723d3afcef96049c6da0972b9ecf6bd5a0876) (Mark Wei)
+* [Update to runtim 4.0.0](https://github.com/material-motion/material-motion-family-tween-android/commit/c37658d97f3da111b97330319dbd02d297bfb074) (Mark Wei)
+* [Actually support latest runtime](https://github.com/material-motion/material-motion-family-tween-android/commit/754db8ed3f6ad2e341bcb4fe104e2d4b2fd85f1a) (Mark Wei)
+* [Upgrade build chain.](https://github.com/material-motion/material-motion-family-tween-android/commit/d1f53911fa015e21070db9a82d44f913e1e81f6e) (Mark Wei)
+
 # 1.0.0
 
 ## API changes
