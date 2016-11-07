@@ -1,11 +1,11 @@
 # Material Motion Tween Family
 
-[![Build Status](https://travis-ci.org/material-motion/material-motion-family-tween-android.svg?branch=develop)](https://travis-ci.org/material-motion/material-motion-family-tween-android)
-[![codecov](https://codecov.io/gh/material-motion/material-motion-family-tween-android/branch/develop/graph/badge.svg)](https://codecov.io/gh/material-motion/material-motion-family-tween-android)
+[![Build Status](https://travis-ci.org/material-motion/family-tween-android.svg?branch=develop)](https://travis-ci.org/material-motion/family-tween-android)
+[![codecov](https://codecov.io/gh/material-motion/family-tween-android/branch/develop/graph/badge.svg)](https://codecov.io/gh/material-motion/family-tween-android)
 
 The Tween Material Motion family provides a bridge between
 [Property Animation](https://developer.android.com/guide/topics/graphics/prop-animation.html) and the
-[Material Motion runtime](https://github.com/material-motion/material-motion-runtime-android).
+[Material Motion runtime](https://github.com/material-motion/runtime-android).
 
 ## Features
 
@@ -31,7 +31,7 @@ Tween's properties map to the following ObjectAnimator properties:
 | interpolator  | interpolator |
 
 Learn more about the APIs defined in the library by reading our
-[technical documentation](https://jitpack.io/com/github/material-motion/material-motion-family-tween-android/1.1.0/javadoc/) and our
+[technical documentation](https://jitpack.io/com/github/material-motion/family-tween-android/1.1.0/javadoc/) and our
 [Starmap](https://material-motion.gitbooks.io/material-motion-starmap/content/specifications/runtime/).
 
 ## Installation
