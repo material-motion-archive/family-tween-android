@@ -37,10 +37,9 @@ public class TweenTests {
     Tween clone = (Tween) tween.clone();
 
     assertThat(clone.property).isEqualTo(tween.property);
-    assertThat(clone.from).isEqualTo(tween.from);
-    assertThat(clone.to).isEqualTo(tween.to);
+    assertThat(clone.values).isEqualTo(tween.values);
     assertThat(clone.duration).isEqualTo(tween.duration);
     assertThat(clone.delay).isEqualTo(tween.delay);
-    assertThat(clone.interpolator).isEqualTo(tween.interpolator);
+    assertThat(clone.timingFunction).isEqualTo(tween.timingFunction);
   }
 }

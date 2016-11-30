@@ -7,7 +7,7 @@ group = 'com.github.material-motion'
 install {
   repositories.mavenInstaller {
     pom.version = 'local'
-    pom.artifactId = 'material-motion-family-tween-android'
+    pom.artifactId = 'family-tween-android'
   }
 }
 
@@ -36,7 +36,7 @@ android {
 
 dependencies {
   // If you are developing any dependencies locally, also list them in local.dependencies.
-  compile 'com.github.material-motion:material-motion-runtime-android:4.0.0'
+  compile 'com.github.material-motion:material-motion-runtime-android:5.1.0'
 
   testCompile 'com.google.truth:truth:0.28'
   testCompile 'junit:junit:4.12'

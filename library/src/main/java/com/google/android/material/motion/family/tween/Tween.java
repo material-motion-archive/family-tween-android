@@ -16,16 +16,13 @@
 
 package com.google.android.material.motion.family.tween;
 
+import android.animation.TimeInterpolator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.animation.AccelerateDecelerateInterpolator;
+
 import com.google.android.material.motion.runtime.Performer;
 import com.google.android.material.motion.runtime.Plan;
-
-import android.animation.PropertyValuesHolder;
-import android.animation.TimeInterpolator;
-import android.animation.TypeEvaluator;
-import android.util.Property;
 
 /**
  * Interpolate a {@link TweenProperty} from one value to another.
@@ -36,17 +33,6 @@ public class Tween<V> extends Plan {
    * The property whose value will be tweened.
    */
   public TweenProperty<?, V> property;
-  /**
-   * The initial value of the tween.
-   *
-   * If null, the tween will infer the start value from the target's current value.
-   */
-  @Nullable
-  public V from;
-  /**
-   * The final value of the tween.
-   */
-  public V to;
 
   /**
    * The duration of the animation in milliseconds.
@@ -56,33 +42,51 @@ public class Tween<V> extends Plan {
    * The start delay of the animation in milliseconds.
    */
   public long delay;
+
   /**
-   * The timing function to apply to the animation.
-   *
-   * If null, a default {@link AccelerateDecelerateInterpolator} will apply.
+   * An array of objects providing the value of the animation for each keyframe.
+   */
+  public V[] values;
+
+  /**
+   * An optional array that defines the pacing of the animation. Each offset corresponds to its
+   * identically-indexed value in the {@link #values} array. Each offset is a floating point
+   * number in the range of [0,1] that defines the fraction of the {@link #duration} at which the
+   * corresponding value should apply. If null, each value is assumed to be evenly spaced.
    */
   @Nullable
-  public TimeInterpolator interpolator;
+  public float[] offsets;
 
   /**
-   * Initializes a Tween plan for the given property to the given final value. The initial value is
-   * calculated from the target.
+   * An optional array that defines the timing functions to be used between any two values. If
+   * {@link #values} is of length n, then this should be of length n-1. If null, each timing
+   * function is assumed to be linear.
+   * <p>
+   * These timing functions composes with the {@link #timingFunction overall timing function}.
    */
-  public Tween(TweenProperty<?, V> property, long duration, @NonNull V to) {
-    this.property = property;
-    this.duration = duration;
-    this.to = to;
-  }
+  @Nullable
+  public TimeInterpolator[] interTimingFunctions;
 
   /**
-   * Initializes a Tween plan for the given property from the given initial value to the given final
-   * value.
+   * The overall timing function to apply to the animation. If null, the overall timing function
+   * is assumed to be {@link AccelerateDecelerateInterpolator}.
+   * <p>
+   * This timing function composes with the keyframe {@link #interTimingFunctions}.
    */
-  public Tween(TweenProperty<?, V> property, long duration, @NonNull V from, @NonNull V to) {
+  @Nullable
+  public TimeInterpolator timingFunction;
+
+  /**
+   * Initializes a Tween plan for the given property with the values as the keyframes.
+   * <p>
+   * If {@code values.length == 1}, the sole value will be treated as the final value. The initial
+   * value will be calculated from the target.
+   */
+  @SafeVarargs
+  public Tween(TweenProperty<?, V> property, long duration, @NonNull V... values) {
     this.property = property;
     this.duration = duration;
-    this.from = from;
-    this.to = to;
+    this.values = values;
   }
 
   @Override

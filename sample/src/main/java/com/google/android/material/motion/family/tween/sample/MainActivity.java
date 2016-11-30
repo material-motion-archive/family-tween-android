@@ -23,14 +23,14 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import com.google.android.material.motion.family.tween.Tween;
 import com.google.android.material.motion.family.tween.TweenProperty;
-import com.google.android.material.motion.runtime.Runtime;
+import com.google.android.material.motion.runtime.MotionRuntime;
 
 /**
  * Material Motion Tween Family sample Activity.
  */
 public class MainActivity extends AppCompatActivity {
 
-  private final Runtime runtime = new Runtime();
+  private final MotionRuntime runtime = new MotionRuntime();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +49,12 @@ public class MainActivity extends AppCompatActivity {
 
         switch (event.getActionMasked()) {
           case MotionEvent.ACTION_DOWN:
-            tweenScale.to = .5f;
-            tweenBackgroundColor.to = Color.GREEN;
+            tweenScale.values[0] = .5f;
+            tweenBackgroundColor.values[0] = Color.GREEN;
             break;
           case MotionEvent.ACTION_UP:
-            tweenScale.to = 1f;
-            tweenBackgroundColor.to = Color.RED;
+            tweenScale.values[0] = 1f;
+            tweenBackgroundColor.values[0] = Color.RED;
             break;
           default:
             return false;
