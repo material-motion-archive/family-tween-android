@@ -49,12 +49,12 @@ public class MainActivity extends AppCompatActivity {
 
         switch (event.getActionMasked()) {
           case MotionEvent.ACTION_DOWN:
-            tweenScale.to = .5f;
-            tweenBackgroundColor.to = Color.GREEN;
+            tweenScale.values[0] = .5f;
+            tweenBackgroundColor.values[0] = Color.GREEN;
             break;
           case MotionEvent.ACTION_UP:
-            tweenScale.to = 1f;
-            tweenBackgroundColor.to = Color.RED;
+            tweenScale.values[0] = 1f;
+            tweenBackgroundColor.values[0] = Color.RED;
             break;
           default:
             return false;
