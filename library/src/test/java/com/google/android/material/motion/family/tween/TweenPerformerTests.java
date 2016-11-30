@@ -26,7 +26,7 @@ import com.google.android.material.motion.runtime.Performer;
 import com.google.android.material.motion.runtime.PerformerFeatures.ContinuousPerforming.IsActiveToken;
 import com.google.android.material.motion.runtime.PerformerFeatures.ContinuousPerforming.IsActiveTokenGenerator;
 import com.google.android.material.motion.runtime.Plan;
-import com.google.android.material.motion.runtime.Runtime;
+import com.google.android.material.motion.runtime.MotionRuntime;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -41,12 +41,12 @@ import static com.google.common.truth.Truth.assertThat;
 @Config(constants = BuildConfig.class, sdk = 21)
 public class TweenPerformerTests {
 
-  private Runtime runtime;
+  private MotionRuntime runtime;
   private View target;
 
   @Before
   public void setUp() {
-    runtime = new Runtime();
+    runtime = new MotionRuntime();
     Context context = Robolectric.setupActivity(Activity.class);
     target = new View(context);
   }

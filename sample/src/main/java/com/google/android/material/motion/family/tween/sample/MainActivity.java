@@ -23,14 +23,14 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import com.google.android.material.motion.family.tween.Tween;
 import com.google.android.material.motion.family.tween.TweenProperty;
-import com.google.android.material.motion.runtime.Runtime;
+import com.google.android.material.motion.runtime.MotionRuntime;
 
 /**
  * Material Motion Tween Family sample Activity.
  */
 public class MainActivity extends AppCompatActivity {
 
-  private final Runtime runtime = new Runtime();
+  private final MotionRuntime runtime = new MotionRuntime();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
