@@ -114,11 +114,23 @@ To run all unit tests, run the following commands:
 ## Guides
 
 1. [How to animate a property with a Tween plan](#how-to-animate-a-property-with-a-tween-plan)
+1. [How to animate a property with a keyframe Tween plan](#how-to-animate-a-property-with-a-keyframe-tween-plan)
 
 ### How to animate a property with a Tween plan
 
 ```java
 Tween tween = new Tween<>(property, duration, from, to);
+runtime.addPlan(tween, view);
+```
+
+### How to animate a property with a keyframe Tween plan
+
+```java
+float[] values = new float[] {0f, .5f, 1f};
+float[] offsets = new float[] {0f, .25f, 1f};
+
+Tween tween = new Tween<>(property, duration, values);
+tween.offsets = offsets;
 runtime.addPlan(tween, view);
 ```
 
