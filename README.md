@@ -2,10 +2,12 @@
 
 [![Build Status](https://travis-ci.org/material-motion/family-tween-android.svg?branch=develop)](https://travis-ci.org/material-motion/family-tween-android)
 [![codecov](https://codecov.io/gh/material-motion/family-tween-android/branch/develop/graph/badge.svg)](https://codecov.io/gh/material-motion/family-tween-android)
+[![Release](https://img.shields.io/github/release/material-motion/family-tween-android.svg)](https://github.com/material-motion/family-tween-android/releases/latest)
+[![Docs](https://img.shields.io/badge/jitpack-docs-green.svg)](https://jitpack.io/com/github/material-motion/family-tween-android/stable-SNAPSHOT/javadoc/)
 
 The Tween Material Motion family provides a bridge between
 [Property Animation](https://developer.android.com/guide/topics/graphics/prop-animation.html) and the
-[Material Motion runtime](https://github.com/material-motion/runtime-android).
+[Material Motion Runtime](https://github.com/material-motion/runtime-android).
 
 ## Features
 
@@ -31,8 +33,8 @@ Tween's properties map to the following ObjectAnimator properties:
 | interpolator  | interpolator |
 
 Learn more about the APIs defined in the library by reading our
-[technical documentation](https://jitpack.io/com/github/material-motion/family-tween-android/1.1.0/javadoc/) and our
-[Starmap](https://material-motion.gitbooks.io/material-motion-starmap/content/specifications/runtime/).
+[technical documentation](https://jitpack.io/com/github/material-motion/family-tween-android/1.0.0/javadoc/) and our
+[Starmap](https://material-motion.github.io/material-motion/starmap/).
 
 ## Installation
 
@@ -48,18 +50,18 @@ allprojects {
 }
 ```
 
-Depend on the [latest version](https://github.com/material-motion/material-motion-family-tween-android/releases) of the library.
+Depend on the [latest version](https://github.com/material-motion/family-tween-android/releases) of the library.
 Take care to occasionally [check for updates](https://github.com/ben-manes/gradle-versions-plugin).
 
 ```gradle
 dependencies {
-    compile 'com.github.material-motion:material-motion-family-tween-android:1.1.0'
+    compile 'com.github.material-motion:family-tween-android:1.0.0'
 }
 ```
 
 For more information regarding versioning, see:
 
-- [Material Motion Versioning Policies](https://material-motion.gitbooks.io/material-motion-team/content/essentials/core_team_contributors/release_process.html#versioning)
+- [Material Motion Versioning Policies](https://material-motion.github.io/material-motion/team/essentials/core_team_contributors/release_process#versioning)
 
 ### Using the files from a folder local to the machine
 
@@ -68,7 +70,7 @@ with its client project. To add a local dependency on this library, add this
 library's identifier to your project's `local.dependencies`:
 
 ```
-com.github.material-motion:material-motion-family-tween-android
+com.github.material-motion:family-tween-android
 ```
 
 > Because `local.dependencies` is never to be checked into Version Control
@@ -80,8 +82,7 @@ Systems, you must also ensure that any local dependencies are also defined in
 For each local dependency listed, you *must* run `gradle install` from its
 project root every time you make a change to it. That command will publish your
 latest changes to the local maven repository. If your local dependencies have
-local dependencies of their own, you must `gradle install` them as well. See
-[Issue #16](https://github.com/material-motion/material-motion-runtime-android/issues/16).
+local dependencies of their own, you must `gradle install` them as well.
 
 You must `gradle clean` your project every time you add or remove a local
 dependency.
@@ -100,14 +101,14 @@ choose the root `build.gradle` file.
 
 To build the sample application, run the following commands:
 
-    git clone https://github.com/material-motion/material-motion-family-tween-android.git
-    cd material-motion-family-tween-android
+    git clone https://github.com/material-motion/family-tween-android.git
+    cd family-tween-android
     gradle installDebug
 
 To run all unit tests, run the following commands:
 
-    git clone https://github.com/material-motion/material-motion-family-tween-android.git
-    cd material-motion-family-tween-android
+    git clone https://github.com/material-motion/family-tween-android.git
+    cd family-tween-android
     gradle test
 
 ## Guides
@@ -125,11 +126,11 @@ runtime.addPlan(tween, view);
 
 We welcome contributions!
 
-Check out our [upcoming milestones](https://github.com/material-motion/material-motion-family-tween-android/milestones).
+Check out our [upcoming milestones](https://github.com/material-motion/family-tween-android/milestones).
 
-Learn more about [our team](https://material-motion.gitbooks.io/material-motion-team/content/),
-[our community](https://material-motion.gitbooks.io/material-motion-team/content/community/),
-and our [contributor essentials](https://material-motion.gitbooks.io/material-motion-team/content/essentials/).
+Learn more about [our team](https://material-motion.github.io/material-motion/team/),
+[our community](https://material-motion.github.io/material-motion/team/community/), and
+our [contributor essentials](https://material-motion.github.io/material-motion/team/essentials/).
 
 ## License
 

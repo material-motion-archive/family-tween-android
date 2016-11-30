@@ -7,7 +7,7 @@ group = 'com.github.material-motion'
 install {
   repositories.mavenInstaller {
     pom.version = 'local'
-    pom.artifactId = 'material-motion-family-tween-android'
+    pom.artifactId = 'family-tween-android'
   }
 }
 
