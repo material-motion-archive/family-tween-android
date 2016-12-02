@@ -24,12 +24,12 @@ import android.animation.TimeInterpolator;
 
 import com.google.android.material.motion.runtime.Performer;
 import com.google.android.material.motion.runtime.PerformerFeatures.ContinuousPerforming;
-import com.google.android.material.motion.runtime.PlanFeatures.BasePlan;
+import com.google.android.material.motion.runtime.Plan;
 
 /**
  * A {@link Performer} for tween animations. Uses the {@link Animator} API to fulfil tweens.
  */
-public class TweenPerformer extends Performer implements ContinuousPerforming {
+public class TweenPerformer extends Performer<Object> implements ContinuousPerforming {
 
   private IsActiveTokenGenerator isActiveTokenGenerator;
 
@@ -39,7 +39,7 @@ public class TweenPerformer extends Performer implements ContinuousPerforming {
   }
 
   @Override
-  public void addPlan(BasePlan plan) {
+  public void addPlan(Plan<Object> plan) {
     if (plan instanceof Tween) {
       addTween((Tween) plan);
     } else {

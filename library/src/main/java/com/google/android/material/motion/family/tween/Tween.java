@@ -27,12 +27,12 @@ import com.google.android.material.motion.runtime.Plan;
 /**
  * Interpolate a {@link TweenProperty} from one value to another.
  */
-public class Tween<V> extends Plan {
+public class Tween<V> extends Plan<Object> {
 
   /**
    * The property whose value will be tweened.
    */
-  public TweenProperty<?, V> property;
+  public TweenProperty<? extends Object, V> property;
 
   /**
    * The duration of the animation in milliseconds.
@@ -83,14 +83,14 @@ public class Tween<V> extends Plan {
    * value will be calculated from the target.
    */
   @SafeVarargs
-  public Tween(TweenProperty<?, V> property, long duration, @NonNull V... values) {
+  public Tween(TweenProperty<? extends Object, V> property, long duration, @NonNull V... values) {
     this.property = property;
     this.duration = duration;
     this.values = values;
   }
 
   @Override
-  public Class<? extends Performer> getPerformerClass() {
+  public Class<? extends Performer<Object>> getPerformerClass() {
     return TweenPerformer.class;
   }
 }
