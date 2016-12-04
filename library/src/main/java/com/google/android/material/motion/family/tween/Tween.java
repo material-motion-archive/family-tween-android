@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Material Motion Authors. All Rights Reserved.
+ * Copyright 2016-present The Material Motion Authors. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,18 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.google.android.material.motion.family.tween;
 
 import android.support.annotation.NonNull;
 import android.view.View;
 
-import com.google.android.material.motion.runtime.Performer;
-
 /**
- * Interpolate a {@link TweenProperty} on a view from one value to another.
+ * Interpolate a view's {@link TweenProperty} from one value to another.
  */
-public class Tween<V> extends BaseTween<View, V> {
+public class Tween<V> extends ObjectTween<View, V> {
 
   /**
    * Initializes a Tween plan for the given property with the values as the keyframes.
@@ -35,10 +32,5 @@ public class Tween<V> extends BaseTween<View, V> {
   @SafeVarargs
   public Tween(TweenProperty<? super View, V> property, long duration, @NonNull V... values) {
     super(property, duration, values);
-  }
-
-  @Override
-  protected Class<? extends Performer<View>> getPerformerClass() {
-    return TweenPerformer.class;
   }
 }

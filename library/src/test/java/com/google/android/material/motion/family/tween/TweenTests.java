@@ -15,9 +15,15 @@
  */
 package com.google.android.material.motion.family.tween;
 
+import android.app.Activity;
+import android.view.View;
+
+import com.google.android.material.motion.runtime.MotionRuntime;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -26,6 +32,51 @@ import static com.google.common.truth.Truth.assertThat;
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 21)
 public class TweenTests {
+
+  private MotionRuntime runtime;
+  private View view;
+
+  @Before
+  public void setUp() {
+    runtime = new MotionRuntime();
+    view = new View(Robolectric.setupActivity(Activity.class));
+  }
+
+  @Test
+  public void tweenArbitraryTweenProperty() {
+    view.setAlpha(1f);
+
+    Tween<Float> tween = new Tween<>(TweenProperty.ALPHA, 300, 0f);
+    runtime.addPlan(tween, view);
+
+    assertThat(view.getAlpha()).isWithin(0f).of(0f);
+  }
+
+  @Test
+  public void tweenArbitraryUntypedTweenProperty() {
+    view.setAlpha(1f);
+
+    Tween tween = new Tween<>(TweenProperty.ALPHA, 300, 0f);
+    runtime.addPlan(tween, view);
+
+    assertThat(view.getAlpha()).isWithin(0f).of(0f);
+  }
+
+  @Test(expected = Exception.class)
+  public void untypedTweenCircumventsTypeSafety() {
+    Tween tween = new Tween<>(TweenProperty.ALPHA, 300, 0f);
+    runtime.addPlan(tween, new Object());
+  }
+
+  @Test
+  public void tweenArbitraryObjectProperty() {
+    view.setAlpha(1f);
+
+    ObjectTween<View, Float> tween = new ObjectTween<>(TweenProperty.ALPHA, 300, 0f);
+    runtime.addPlan(tween, view);
+
+    assertThat(view.getAlpha()).isWithin(0f).of(0f);
+  }
 
   @Test
   public void cloneHasEqualProperties() {

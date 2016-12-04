@@ -19,16 +19,12 @@ import android.animation.TypeEvaluator;
 import android.util.Property;
 
 import com.google.android.material.motion.runtime.MotionRuntime;
-import com.google.android.material.motion.runtime.Performer;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
-
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -47,7 +43,7 @@ public class ObjectTweenTests {
   public void tweenArbitraryObjectProperty() {
     Data data = new Data("hi");
 
-    ObjectTween<String> tween = new ObjectTween<>(new TextProperty(), 300, "bye");
+    ObjectTween<Object, String> tween = new ObjectTween<>(new TextProperty(), 300, "bye");
     runtime.addPlan(tween, data);
 
     assertThat(data.text).isEqualTo("bye");
@@ -57,13 +53,7 @@ public class ObjectTweenTests {
   public void tweenArbitraryDataProperty() {
     Data data = new Data("hi");
 
-    BaseTween<Data, String> tween = new BaseTween<Data, String>(new TextProperty(), 300, "bye") {
-
-      @Override
-      protected Class<? extends Performer<Data>> getPerformerClass() {
-        return DataTweenPerformer.class;
-      }
-    };
+    ObjectTween<Data, String> tween = new ObjectTween<>(new TextProperty(), 300, "bye");
     runtime.addPlan(tween, data);
 
     assertThat(data.text).isEqualTo("bye");
@@ -99,8 +89,5 @@ public class ObjectTweenTests {
         }
       });
     }
-  }
-
-  public static class DataTweenPerformer extends BaseTweenPerformer<Data> {
   }
 }

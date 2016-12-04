@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Material Motion Authors. All Rights Reserved.
+ * Copyright 2016-present The Material Motion Authors. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,115 @@
 package com.google.android.material.motion.family.tween;
 
 import android.animation.Animator;
-import android.view.View;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.Keyframe;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.animation.TimeInterpolator;
 
 import com.google.android.material.motion.runtime.Performer;
+import com.google.android.material.motion.runtime.PerformerFeatures.ContinuousPerforming;
+import com.google.android.material.motion.runtime.Plan;
 
 /**
- * A {@link Performer} for view tween animations. Uses the {@link Animator} API to fulfil tweens.
+ * A {@link Performer} for object tween animations. Uses the {@link Animator} API to fulfil tweens.
  */
-public class TweenPerformer extends BaseTweenPerformer<View> {
+public class TweenPerformer<T> extends Performer<T> implements ContinuousPerforming {
+
+  private IsActiveTokenGenerator isActiveTokenGenerator;
+
+  @Override
+  public void setIsActiveTokenGenerator(IsActiveTokenGenerator isActiveTokenGenerator) {
+    this.isActiveTokenGenerator = isActiveTokenGenerator;
+  }
+
+  @Override
+  public void addPlan(Plan<T> plan) {
+    if (plan instanceof ObjectTween) {
+      addTween((ObjectTween<T, ?>) plan);
+    } else {
+      throw new IllegalArgumentException("Plan type not supported for " + plan);
+    }
+  }
+
+  private void addTween(ObjectTween<T, ?> plan) {
+    if (!validate(plan)) {
+      throw new IllegalArgumentException("Plan failed validation: " + plan);
+    }
+
+    ObjectAnimator animator =
+      ObjectAnimator.ofPropertyValuesHolder(getTarget(), createPropertyValuesHolder(plan));
+    animator.setStartDelay(plan.delay);
+    animator.setDuration(plan.duration);
+    if (plan.timingFunction != null) {
+      animator.setInterpolator(plan.timingFunction);
+    }
+    animator.setEvaluator(plan.property.evaluator);
+
+    animator.addListener(
+      new AnimatorListenerAdapter() {
+
+        private IsActiveToken token;
+
+        @Override
+        public void onAnimationStart(Animator animation) {
+          token = isActiveTokenGenerator.generate();
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+          token.terminate();
+        }
+      });
+    animator.start();
+  }
+
+  private boolean validate(ObjectTween<T, ?> plan) {
+    if (plan.values.length == 0) {
+      return false;
+    }
+
+    if (plan.offsets != null && plan.offsets.length != plan.values.length) {
+      return false;
+    }
+
+    if (plan.interTimingFunctions != null
+      && plan.interTimingFunctions.length != plan.values.length - 1) {
+      return false;
+    }
+
+    return true;
+  }
+
+  private PropertyValuesHolder createPropertyValuesHolder(ObjectTween<T, ?> plan) {
+    // Create keyframes.
+    Keyframe[] keyframes;
+    if (plan.values.length == 1) {
+      keyframes = new Keyframe[2];
+
+      keyframes[0] = Keyframe.ofObject(0f);
+      keyframes[1] = Keyframe.ofObject(1f, plan.values[0]);
+    } else {
+      keyframes = new Keyframe[plan.values.length];
+
+      for (int i = 0, count = plan.values.length; i < count; i++) {
+        Object value = plan.values[i];
+        float offset = plan.offsets != null ? plan.offsets[i] : 0f;
+        TimeInterpolator interTimingFunction = plan.interTimingFunctions != null && i > 0
+          ? plan.interTimingFunctions[i - 1] : null;
+
+        keyframes[i] = Keyframe.ofObject(offset, value);
+        keyframes[i].setInterpolator(interTimingFunction);
+      }
+    }
+
+    // Space keyframes dynamically.
+    if (plan.offsets == null) {
+      for (int i = 0, count = keyframes.length; i < count; i++) {
+        keyframes[i].setFraction((float) i / count - 1);
+      }
+    }
+
+    return PropertyValuesHolder.ofKeyframe(plan.property.property, keyframes);
+  }
 }
