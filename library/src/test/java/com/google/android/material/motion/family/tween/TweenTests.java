@@ -15,26 +15,22 @@
  */
 package com.google.android.material.motion.family.tween;
 
-import static com.google.common.truth.Truth.assertThat;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import static com.google.common.truth.Truth.assertThat;
+
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 21)
 public class TweenTests {
 
-  @Before
-  public void setUp() {
-  }
-
   @Test
   public void cloneHasEqualProperties() {
     Tween<Float> tween = new Tween<>(TweenProperty.ALPHA, 300, 0f, 1f);
-    Tween clone = (Tween) tween.clone();
+    Tween<Float> clone = (Tween<Float>) tween.clone();
 
     assertThat(clone.property).isEqualTo(tween.property);
     assertThat(clone.values).isEqualTo(tween.values);

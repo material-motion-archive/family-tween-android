@@ -13,15 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.google.android.material.motion.family.tween;
 
-import android.animation.Animator;
+import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.google.android.material.motion.runtime.Performer;
 
 /**
- * A {@link Performer} for view tween animations. Uses the {@link Animator} API to fulfil tweens.
+ * Interpolate a {@link TweenProperty} on a object from one value to another.
  */
-public class TweenPerformer extends BaseTweenPerformer<View> {
+public class ObjectTween<V> extends BaseTween<Object, V> {
+
+  /**
+   * Initializes an ObjectTween plan for the given property with the values as the keyframes.
+   * <p>
+   * If {@code values.length == 1}, the sole value will be treated as the final value. The initial
+   * value will be calculated from the target.
+   */
+  @SafeVarargs
+  public ObjectTween(TweenProperty<? super Object, V> property, long duration, @NonNull V... values) {
+    super(property, duration, values);
+  }
+
+  @Override
+  protected Class<? extends Performer<Object>> getPerformerClass() {
+    return ObjectTweenPerformer.class;
+  }
 }

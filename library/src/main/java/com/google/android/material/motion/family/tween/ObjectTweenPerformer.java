@@ -21,7 +21,7 @@ import android.view.View;
 import com.google.android.material.motion.runtime.Performer;
 
 /**
- * A {@link Performer} for view tween animations. Uses the {@link Animator} API to fulfil tweens.
+ * A {@link Performer} for object tween animations. Uses the {@link Animator} API to fulfil tweens.
  */
-public class TweenPerformer extends BaseTweenPerformer<View> {
+public class ObjectTweenPerformer extends BaseTweenPerformer<Object> {
 }

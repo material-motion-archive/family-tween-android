@@ -119,7 +119,7 @@ To run all unit tests, run the following commands:
 ### How to animate a property with a Tween plan
 
 ```java
-Tween tween = new Tween<>(property, duration, from, to);
+Tween<Float> tween = new Tween<>(property, duration, from, to);
 runtime.addPlan(tween, view);
 ```
 
@@ -129,7 +129,7 @@ runtime.addPlan(tween, view);
 float[] values = new float[] {0f, .5f, 1f};
 float[] offsets = new float[] {0f, .25f, 1f};
 
-Tween tween = new Tween<>(property, duration, values);
+Tween<Float> tween = new Tween<>(property, duration, values);
 tween.offsets = offsets;
 runtime.addPlan(tween, view);
 ```
