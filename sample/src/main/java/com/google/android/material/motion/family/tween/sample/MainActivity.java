@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+
 import com.google.android.material.motion.family.tween.Tween;
 import com.google.android.material.motion.family.tween.TweenProperty;
 import com.google.android.material.motion.runtime.MotionRuntime;
@@ -44,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
     content.setOnTouchListener(new OnTouchListener() {
       @Override
       public boolean onTouch(View view, MotionEvent event) {
-        Tween tweenScale = new Tween<>(TweenProperty.SCALE, 300, 1f);
-        Tween tweenBackgroundColor = new Tween<>(TweenProperty.BACKGROUND_COLOR, 300, Color.RED);
+        Tween<Float> tweenScale = new Tween<>(TweenProperty.SCALE, 300, 1f);
+        Tween<Integer> tweenBackgroundColor = new Tween<>(TweenProperty.BACKGROUND_COLOR, 300, Color.RED);
 
         switch (event.getActionMasked()) {
           case MotionEvent.ACTION_DOWN:

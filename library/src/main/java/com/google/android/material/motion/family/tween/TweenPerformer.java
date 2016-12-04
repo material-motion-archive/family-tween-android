@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Material Motion Authors. All Rights Reserved.
+ * Copyright 2016-present The Material Motion Authors. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,12 +24,12 @@ import android.animation.TimeInterpolator;
 
 import com.google.android.material.motion.runtime.Performer;
 import com.google.android.material.motion.runtime.PerformerFeatures.ContinuousPerforming;
-import com.google.android.material.motion.runtime.PlanFeatures.BasePlan;
+import com.google.android.material.motion.runtime.Plan;
 
 /**
- * A {@link Performer} for tween animations. Uses the {@link Animator} API to fulfil tweens.
+ * A {@link Performer} for object tween animations. Uses the {@link Animator} API to fulfil tweens.
  */
-public class TweenPerformer extends Performer implements ContinuousPerforming {
+public class TweenPerformer<T> extends Performer<T> implements ContinuousPerforming {
 
   private IsActiveTokenGenerator isActiveTokenGenerator;
 
@@ -39,15 +39,15 @@ public class TweenPerformer extends Performer implements ContinuousPerforming {
   }
 
   @Override
-  public void addPlan(BasePlan plan) {
-    if (plan instanceof Tween) {
-      addTween((Tween) plan);
+  public void addPlan(Plan<T> plan) {
+    if (plan instanceof ObjectTween) {
+      addTween((ObjectTween<T, ?>) plan);
     } else {
       throw new IllegalArgumentException("Plan type not supported for " + plan);
     }
   }
 
-  private void addTween(Tween plan) {
+  private void addTween(ObjectTween<T, ?> plan) {
     if (!validate(plan)) {
       throw new IllegalArgumentException("Plan failed validation: " + plan);
     }
@@ -79,7 +79,7 @@ public class TweenPerformer extends Performer implements ContinuousPerforming {
     animator.start();
   }
 
-  private boolean validate(Tween plan) {
+  private boolean validate(ObjectTween<T, ?> plan) {
     if (plan.values.length == 0) {
       return false;
     }
@@ -96,7 +96,7 @@ public class TweenPerformer extends Performer implements ContinuousPerforming {
     return true;
   }
 
-  private PropertyValuesHolder createPropertyValuesHolder(Tween plan) {
+  private PropertyValuesHolder createPropertyValuesHolder(ObjectTween<T, ?> plan) {
     // Create keyframes.
     Keyframe[] keyframes;
     if (plan.values.length == 1) {

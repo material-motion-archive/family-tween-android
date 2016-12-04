@@ -33,7 +33,7 @@ Tween's properties map to the following ObjectAnimator properties:
 | interpolator  | interpolator |
 
 Learn more about the APIs defined in the library by reading our
-[technical documentation](https://jitpack.io/com/github/material-motion/family-tween-android/2.0.0/javadoc/) and our
+[technical documentation](https://jitpack.io/com/github/material-motion/family-tween-android/2.1.0/javadoc/) and our
 [Starmap](https://material-motion.github.io/material-motion/starmap/).
 
 ## Installation
@@ -55,7 +55,7 @@ Take care to occasionally [check for updates](https://github.com/ben-manes/gradl
 
 ```gradle
 dependencies {
-    compile 'com.github.material-motion:family-tween-android:2.0.0'
+    compile 'com.github.material-motion:family-tween-android:2.1.0'
 }
 ```
 
@@ -119,7 +119,7 @@ To run all unit tests, run the following commands:
 ### How to animate a property with a Tween plan
 
 ```java
-Tween tween = new Tween<>(property, duration, from, to);
+Tween<Float> tween = new Tween<>(property, duration, from, to);
 runtime.addPlan(tween, view);
 ```
 
@@ -129,7 +129,7 @@ runtime.addPlan(tween, view);
 float[] values = new float[] {0f, .5f, 1f};
 float[] offsets = new float[] {0f, .25f, 1f};
 
-Tween tween = new Tween<>(property, duration, values);
+Tween<Float> tween = new Tween<>(property, duration, values);
 tween.offsets = offsets;
 runtime.addPlan(tween, view);
 ```
